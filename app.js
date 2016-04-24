@@ -10,7 +10,24 @@ request({
 }, function (error, response, body){
 
 	if (!error && response.statusCode === 200) {
-		console.log(body.dataset.data[200]);
+			console.log(body.dataset.data[0]);
+		
+		var parseo = body.dataset.data;
+
+	var jsonString=[];
+		for (var i=0; i < parseo.leght; i++){
+			var jsonDato = {};
+			jsonDato.fecha = parseo[i][0];
+			jsonDato.apertura = parseo[i][1];
+			jsonDato.alto = parseo[i][2];
+			jsonDato.bajo = parseo[i][3];
+			jsonDato.cierre = parseo[i][4];
+			jsonDato.volumen = parseo[i][5];
+			jsonDatp.ajusteVolumen = parseo[i][6];
+			jsonString.push(jsonDato);
+		} 
+		var jsonArray = JSON.parse(JSON.stringify(jsonString));
+		console.log(jsonArray);
 	}
 });
 
