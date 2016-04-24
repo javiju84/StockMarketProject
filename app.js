@@ -1,5 +1,6 @@
 var express = require ("express");
 var app = express();
+var Index_Ibex35 = require("./models/index_ibex35").Index_Ibex35;//llamamos al Schema,librerias
 var request = require("request");
 
 var url = "https://www.quandl.com/api/v3/datasets/YAHOO/INDEX_IBEX.json"
@@ -12,7 +13,7 @@ request({
 	if (!error && response.statusCode === 200) {
 			//console.log(body.dataset.data); /*obtener todos los datos de date*/
 			//console.log(body.dataset.dataset_code);/*obtener el nombre de la tabla 'INDEX_IBEX'*/
-			console.log(body.dataset.data[0]);
+			console.log(body.dataset.data);
 		var parseo = body.dataset.data;
 
 	var jsonString=[];
@@ -24,11 +25,11 @@ request({
 			jsonDato.bajo = parseo[i][3];
 			jsonDato.cierre = parseo[i][4];
 			jsonDato.volumen = parseo[i][5];
-			jsonDatp.ajusteVolumen = parseo[i][6];
+			jsonDatp.ajuste_cierre = parseo[i][6];
 			jsonString.push(jsonDato);
 		} 
 		var jsonArray = JSON.parse(JSON.stringify(jsonString));
-		console.log(jsonArray);
+		console.log(jsonArray);*/
 	}
 });
 
