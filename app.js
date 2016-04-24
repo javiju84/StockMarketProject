@@ -10,8 +10,9 @@ request({
 }, function (error, response, body){
 
 	if (!error && response.statusCode === 200) {
+			//console.log(body.dataset.data); /*obtener todos los datos de date*/
+			//console.log(body.dataset.dataset_code);/*obtener el nombre de la tabla 'INDEX_IBEX'*/
 			console.log(body.dataset.data[0]);
-		
 		var parseo = body.dataset.data;
 
 	var jsonString=[];
