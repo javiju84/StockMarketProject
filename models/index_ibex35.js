@@ -17,6 +17,6 @@ var index_ibex35_schema = new Schema({
 model => es el constructor que genera los modelos
 Index_Ibex35 => es el nombre del modelo
 */
-var Index_Ibex35 = mongoose.model("Index_Ibex35",index_ibex35_schema);
+var db = mongoose.model("db",index_ibex35_schema);
 
-module.exports.Index_Ibex35 = Index_Ibex35;
+module.exports.db = db;

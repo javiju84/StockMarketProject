@@ -1,6 +1,6 @@
 var express = require ("express");
 var app = express();
-var Index_Ibex35 = require("./models/index_ibex35").Index_Ibex35;//llamamos al Schema,librerias
+var db = require("./models/index_ibex35").db;//llamamos al Schema,librerias
 var request = require("request");
 
 var url = "https://www.quandl.com/api/v3/datasets/YAHOO/INDEX_IBEX.json"
@@ -29,10 +29,9 @@ request({
 			jsonString.push(jsonDato);
 		} 
 		var jsonArray = JSON.parse(JSON.stringify(jsonString));
-		console.log(jsonArray);*/
+		console.log(jsonArray);
 	}
 });
-
 
 
 app.listen(8080);
