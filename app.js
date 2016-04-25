@@ -1,42 +1,38 @@
 var express = require ("express");
+var mongoose = require("mongoose");
+var assert = require("assert");
 var app = express();
-var Database = require("./models/index_ibex35").Database;//llamamos al Schema,librerias
-var request = require("request");
 
-var url = "https://www.quandl.com/api/v3/datasets/YAHOO/INDEX_IBEX.json"
+mongoose.connect("mongodb://localhost/ibex35");
 
-request({
-	url: url,
-	json:true
-}, function (error, response, body){
+var Schema = mongoose.Schema;//constructor para poder generar los esquemas
 
-	if (!error && response.statusCode === 200) {
-			console.log(body.dataset.data); /*obtener todos los datos de date*/
-			//console.log(body.dataset.dataset_code);/*obtener el nombre de la tabla 'INDEX_IBEX'*/
-			//console.log(body.dataset.data[0]);/*obetener solo un valor*/
-		var parseo = body.dataset.data;
-
-	var jsonString=[];
-		for (var i=0; i < parseo.leght; i++){
-			var jsonDato = {};
-			jsonDato.fecha = parseo[i][0];
-			jsonDato.apertura = parseo[i][1];
-			jsonDato.alto = parseo[i][2];
-			jsonDato.bajo = parseo[i][3];
-			jsonDato.cierre = parseo[i][4];
-			jsonDato.volumen = parseo[i][5];
-			jsonDatp.ajuste_cierre = parseo[i][6];
-			jsonString.push(jsonDato);
-		} 
-		var jsonArray = JSON.parse(JSON.stringify(jsonString));
-		console.log(jsonArray);
-
-	/*	parseo.save( function(err, data){
-			res.json(data);
-		});*/
-	}
+var valoresSchema = new Schema({
+	fecha: Date,
+	apertura: Number,
+	alto: Number,
+	bajo: Number,
+	cierre: Number,
+	volumen: Number,
+	ajuste_cierre: Number,
 });
 
+var Database = mongoose.model("Database",valoresSchema);
 
+data = [
+	{"fecha" :"2016-04-22"},
+	{"apertura" : 9183.900391},
+	{"alto" : 9244.400391},
+	{"bajo" : 9161.599609},
+	{"cierre" : 9232.799805},
+	{"volumen" : 299600000.0},
+	{"ajuste_cierre" : 9232.799805}
+  ]
+
+Database.collection.insertMany(data, function(err,r){
+	assert.equal(null, err);
+	assert.equal(7, r.insertedCount);
+
+})
 app.listen(8080);
 console.log("Servidor conectado  puerto 8080")
