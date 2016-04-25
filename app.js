@@ -1,6 +1,6 @@
 var express = require ("express");
 var app = express();
-var db = require("./models/index_ibex35").db;//llamamos al Schema,librerias
+var Database = require("./models/index_ibex35").Database;//llamamos al Schema,librerias
 var request = require("request");
 
 var url = "https://www.quandl.com/api/v3/datasets/YAHOO/INDEX_IBEX.json"
@@ -11,9 +11,9 @@ request({
 }, function (error, response, body){
 
 	if (!error && response.statusCode === 200) {
-			//console.log(body.dataset.data); /*obtener todos los datos de date*/
+			console.log(body.dataset.data); /*obtener todos los datos de date*/
 			//console.log(body.dataset.dataset_code);/*obtener el nombre de la tabla 'INDEX_IBEX'*/
-			console.log(body.dataset.data);
+			//console.log(body.dataset.data[0]);/*obetener solo un valor*/
 		var parseo = body.dataset.data;
 
 	var jsonString=[];
@@ -30,6 +30,10 @@ request({
 		} 
 		var jsonArray = JSON.parse(JSON.stringify(jsonString));
 		console.log(jsonArray);
+
+	/*	parseo.save( function(err, data){
+			res.json(data);
+		});*/
 	}
 });
 

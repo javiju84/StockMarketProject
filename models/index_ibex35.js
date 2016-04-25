@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;//constructor para poder generar los esquemas
 /*conexion MongoDB*/
 mongoose.connect("mongodb://localhost/ibex35");
 
-var index_ibex35_schema = new Schema({
+var Database = new Schema({
 	fecha: Date,
 	apertura: String,
 	alto: String,
@@ -17,6 +17,6 @@ var index_ibex35_schema = new Schema({
 model => es el constructor que genera los modelos
 Index_Ibex35 => es el nombre del modelo
 */
-var db = mongoose.model("db",index_ibex35_schema);
+var Database = mongoose.model("Database",Database);
 
-module.exports.db = db;
+module.exports.Database = Database;
